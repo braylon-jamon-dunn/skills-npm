@@ -2,15 +2,17 @@ catalogMode: prefer
 ignoreWorkspaceRootCheck: true
 shellEmulator: true
 trustPolicy: no-downgrade
+trustPolicyExclude:
+  - semver@6.3.1
+  - undici-types@6.21.0
+  - langium@3.3.1
 
 packages:
   - playground
   - docs
   - packages/*
   - examples/*
-
 catalogs:
-  # Build & development tools
   dev:
     '@antfu/eslint-config': ^7.2.0
     '@antfu/ni': ^28.2.0
@@ -23,22 +25,20 @@ catalogs:
     tsx: ^4.21.0
     typescript: ^5.9.3
     vite: ^7.3.1
-  # Inlined utilities
+  examples:
+    '@slidev/cli': ^52.11.5
   inlined:
     '@antfu/utils': ^9.3.0
-  # Production dependencies
   prod:
     '@clack/prompts': ^1.0.0
     gray-matter: ^4.0.3
     picocolors: ^1.1.1
     xdg-basedir: ^5.1.0
-  # Testing tools
   testing:
     tinyexec: ^1.0.2
     vitest: ^4.0.18
     vitest-package-exports: ^1.1.2
     yaml: ^2.8.2
-  # Type definitions
   types:
     '@types/node': ^25.1.0
 onlyBuiltDependencies:

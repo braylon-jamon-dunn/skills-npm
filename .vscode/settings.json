@@ -3,6 +3,11 @@
   "prettier.enable": false,
   "editor.formatOnSave": false,
 
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/vendor": true
+  },
+
   // Auto fix
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",

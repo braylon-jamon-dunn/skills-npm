@@ -175,36 +175,36 @@ async function main(): Promise<void> {
   }
 
   // Detect agents
-  const detectedAgents = await getDetectedAgents()
   let targetAgents: AgentType[]
 
   if (options.agents && options.agents.length > 0) {
     targetAgents = options.agents as AgentType[]
   }
-  else if (detectedAgents.length > 0) {
-    targetAgents = detectedAgents
-  }
-  else if (isTTY) {
-    // No agents detected, prompt user to select (TTY only)
-    const allAgents = getAllAgentTypes()
-    const agentOptions = allAgents.map(agent => ({ value: agent, label: agent }))
-    const selected = await p.multiselect({
-      message: 'No agents detected. Select agents to install to:',
-      options: agentOptions as any,
-      required: true,
-    })
-
-    if (p.isCancel(selected)) {
-      p.cancel('Operation cancelled')
-      process.exit(0)
-    }
-
-    targetAgents = selected as AgentType[]
-  }
   else {
-    // Non-TTY with no agents: error
-    console.error('No agents detected. Use --agents to specify target agents.')
-    process.exit(1)
+    const detectedAgents = await getDetectedAgents()
+    targetAgents = detectedAgents
+    if (isTTY) {
+      // No agents detected, prompt user to select (TTY only)
+      const agentOptions = (detectedAgents.length > 0 ? detectedAgents : getAllAgentTypes()).map(agent => ({ value: agent, label: agent }))
+      const selected = await p.multiselect({
+        message: detectedAgents.length > 0 ? 'Select agents to install to:' : 'No agents detected. Select agents to install to:',
+        options: agentOptions as any,
+        required: true,
+        initialValues: detectedAgents.length > 0 ? detectedAgents : undefined,
+      })
+
+      if (p.isCancel(selected)) {
+        p.cancel('Operation cancelled')
+        process.exit(0)
+      }
+
+      targetAgents = selected as AgentType[]
+    }
+    else if (!targetAgents.length) {
+      // Non-TTY with no agents: error
+      console.error('No agents detected. Use --agents to specify target agents.')
+      process.exit(1)
+    }
   }
 
   if (isTTY) {
@@ -253,25 +253,23 @@ async function main(): Promise<void> {
   }
 
   for (const [agent, agentResults] of byAgent) {
+    const skills = agentResults.map((result) => {
+      const status = isTTY
+        ? (result.success ? c.green('✓') : c.red('✗'))
+        : (result.success ? '✓' : '✗')
+      const prefix = options.dryRun ? (isTTY ? c.yellow('→') : '→') : status
+      return `${prefix} ${result.skill.targetName}`
+    }).join(', ')
+    const errors = agentResults.filter(r => !r.success && r.error)
+
     if (isTTY) {
-      console.log()
-      console.log(`  ${c.bold(agent)}:`)
-      for (const result of agentResults) {
-        const status = result.success ? c.green('✓') : c.red('✗')
-        const prefix = options.dryRun ? c.yellow('→') : status
-        console.log(`    ${prefix} ${result.skill.targetName}`)
-        if (!result.success && result.error) {
-          console.log(`      ${c.red(result.error)}`)
-        }
+      console.log(`  ${c.bold(agent)}: ${skills}`)
+      for (const result of errors) {
+        console.log(`    ${c.red(result.error)}`)
       }
     }
     else {
-      console.log(`${agent}:`)
-      for (const result of agentResults) {
-        const status = result.success ? '✓' : '✗'
-        const prefix = options.dryRun ? '→' : status
-        console.log(`  ${prefix} ${result.skill.targetName}`)
-      }
+      console.log(`${agent}: ${skills}`)
     }
   }
 
