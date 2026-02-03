@@ -51,12 +51,18 @@ catalogs:
     '@clack/prompts':
       specifier: ^1.0.0
       version: 1.0.0
+    cac:
+      specifier: ^6.7.14
+      version: 6.7.14
     gray-matter:
       specifier: ^4.0.3
       version: 4.0.3
     picocolors:
       specifier: ^1.1.1
       version: 1.1.1
+    unconfig:
+      specifier: ^7.4.2
+      version: 7.4.2
     xdg-basedir:
       specifier: ^5.1.0
       version: 5.1.0
@@ -85,12 +91,18 @@ importers:
       '@clack/prompts':
         specifier: catalog:prod
         version: 1.0.0
+      cac:
+        specifier: catalog:prod
+        version: 6.7.14
       gray-matter:
         specifier: catalog:prod
         version: 4.0.3
       picocolors:
         specifier: catalog:prod
         version: 1.1.1
+      unconfig:
+        specifier: catalog:prod
+        version: 7.4.2
       xdg-basedir:
         specifier: catalog:prod
         version: 5.1.0

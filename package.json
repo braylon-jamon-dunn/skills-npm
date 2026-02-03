@@ -49,8 +49,10 @@
   },
   "dependencies": {
     "@clack/prompts": "catalog:prod",
+    "cac": "catalog:prod",
     "gray-matter": "catalog:prod",
     "picocolors": "catalog:prod",
+    "unconfig": "catalog:prod",
     "xdg-basedir": "catalog:prod"
   },
   "devDependencies": {
