@@ -65,6 +65,7 @@
     "eslint": "catalog:dev",
     "lint-staged": "catalog:dev",
     "publint": "catalog:dev",
+    "simple-git": "catalog:dev",
     "simple-git-hooks": "catalog:dev",
     "tinyexec": "catalog:testing",
     "tsdown": "catalog:dev",
