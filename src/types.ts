@@ -1,28 +1,30 @@
+import type { AgentType } from '../vendor/skills/src/types.ts'
+
 export type { AgentConfig, AgentType, Skill } from '../vendor/skills/src/types.ts'
 
 export interface CommandOptions {
   /**
-   * current working directory (defaults to process.cwd())
+   * Current working directory (defaults to process.cwd())
    * @default process.cwd()
    */
   cwd?: string
   /**
-   * target agents to install to (defaults to all detected agents)
+   * Target agents to install to (defaults to all detected agents)
    * @default all detected agents
    */
-  agents?: string[]
+  agents?: AgentType[]
   /**
-   * skip updating .gitignore
+   * Skip updating .gitignore
    * @default true
    */
   gitignore?: boolean
   /**
-   * skip confirmation prompts
+   * Skip confirmation prompts
    * @default false
    */
   yes?: boolean
   /**
-   * dry run mode - don't make changes, just report what would be done
+   * Dry run mode - don't make changes, just report what would be done
    * @default false
    */
   dryRun?: boolean
@@ -30,31 +32,34 @@ export interface CommandOptions {
 
 export interface NpmSkill {
   /**
-   * npm package name
+   * NPM package name
    */
   packageName: string
   /**
-   * skill directory name inside the package's skills/ folder
+   * Skill directory name inside the package's skills/ folder
    */
   skillName: string
   /**
-   * absolute path to the skill directory
+   * Absolute path to the skill directory
    */
   skillPath: string
   /**
-   * target symlink name with npm- prefix (e.g., "npm-eslint-best-practices")
+   * Target symlink name with npm- prefix (e.g., "npm-eslint-best-practices")
    */
   targetName: string
   /**
-   * parsed skill metadata from SKILL.md
+   * Parsed skill metadata from SKILL.md
    */
   name: string
+  /**
+   * Parsed skill description from SKILL.md
+   */
   description: string
 }
 
 export interface ScanOptions {
   /**
-   * current working directory (defaults to process.cwd())
+   * Current working directory (defaults to process.cwd())
    * @default process.cwd()
    */
   cwd?: string
@@ -62,28 +67,28 @@ export interface ScanOptions {
 
 export interface ScanResult {
   /**
-   * skills found in the scan
+   * Skills found in the scan
    */
   skills: NpmSkill[]
   /**
-   * number of packages scanned
+   * Number of packages scanned
    */
   packageCount: number
 }
 
 export interface SymlinkOptions {
   /**
-   * current working directory (defaults to process.cwd())
+   * Current working directory (defaults to process.cwd())
    * @default process.cwd()
    */
   cwd?: string
   /**
-   * dry run mode - don't make changes, just report what would be done
+   * Dry run mode - don't make changes, just report what would be done
    * @default false
    */
   dryRun?: boolean
   /**
-   * target agents to install to (defaults to all detected agents)
+   * Target agents to install to (defaults to all detected agents)
    * @default all detected agents
    */
   agents?: string[]
@@ -91,23 +96,23 @@ export interface SymlinkOptions {
 
 export interface SymlinkResult {
   /**
-   * skill to install
+   * Skill to install
    */
   skill: NpmSkill
   /**
-   * agent to install to
+   * Agent to install to
    */
   agent: string
   /**
-   * symlink path to install to
+   * Symlink path to install to
    */
   targetPath: string
   /**
-   * success flag
+   * Success flag
    */
   success: boolean
   /**
-   * error message
+   * Error message
    */
   error?: string
 }

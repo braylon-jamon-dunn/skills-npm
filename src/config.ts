@@ -4,7 +4,7 @@ import { createConfigLoader } from 'unconfig'
 import { DEFAULT_OPTIONS } from './constants'
 
 function normalizeConfig(options: Partial<CommandOptions>): CommandOptions {
-  // interop
+  // Interop
   if ('default' in options)
     options = options.default as Partial<CommandOptions>
 

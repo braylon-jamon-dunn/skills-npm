@@ -13,12 +13,12 @@ export const LOGO_LINES = [
 ]
 
 export const GRAYS = [
-  '\x1B[38;5;250m', // lighter gray
+  '\x1B[38;5;250m', // Lighter gray
   '\x1B[38;5;248m',
-  '\x1B[38;5;245m', // mid gray
+  '\x1B[38;5;245m', // Mid gray
   '\x1B[38;5;243m',
   '\x1B[38;5;240m',
-  '\x1B[38;5;238m', // darker gray
+  '\x1B[38;5;238m', // Darker gray
 ]
 export const RESET = '\x1B[0m'
 

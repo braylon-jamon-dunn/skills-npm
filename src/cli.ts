@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import type { CAC } from 'cac'
 import type { AgentType, CommandOptions, NpmSkill } from './types.ts'
 import process from 'node:process'

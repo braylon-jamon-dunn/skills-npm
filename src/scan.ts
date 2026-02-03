@@ -52,7 +52,7 @@ export async function scanNodeModules(options: ScanOptions = {}): Promise<ScanRe
     }
   }
   catch {
-    // node_modules doesn't exist or isn't readable
+    // The node_modules doesn't exist or isn't readable
   }
 
   return { skills: allSkills, packageCount }
@@ -90,7 +90,7 @@ export async function scanPackageForSkills(nodeModulesPath: string, packageName:
     }
   }
   catch {
-    // skills/ directory doesn't exist or isn't readable
+    // The skills/ directory doesn't exist or isn't readable
   }
 
   return skills
