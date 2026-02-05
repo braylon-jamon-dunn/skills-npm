@@ -4,6 +4,7 @@ import { join } from 'node:path'
 import process from 'node:process'
 import {
   createTargetName,
+  getPackageVersion,
   hasValidSkillMd,
   isDirectoryOrSymlink,
   searchForPackagesRoot,
@@ -117,6 +118,7 @@ export async function scanPackageForSkills(nodeModulesPath: string, packageName:
       return { skills, invalidSkills }
 
     const entries = await readdir(skillsDir, { withFileTypes: true })
+    const packageVersion = await getPackageVersion(packageName, packagePath)
 
     for (const entry of entries) {
       if (!entry.isDirectory())
@@ -128,6 +130,7 @@ export async function scanPackageForSkills(nodeModulesPath: string, packageName:
       if (skillInfo.valid) {
         skills.push({
           packageName,
+          packageVersion,
           skillName: entry.name,
           skillPath,
           targetName: createTargetName(packageName, entry.name),
@@ -138,6 +141,7 @@ export async function scanPackageForSkills(nodeModulesPath: string, packageName:
       else {
         invalidSkills.push({
           packageName,
+          packageVersion,
           skillName: entry.name,
           error: skillInfo.error || 'unknown_error',
         })
